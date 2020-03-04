@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/navigation_main"
+        android:id="@+id/navigation_map"
         android:icon="@drawable/ic_globe"
-        android:title="Home" />
+
+        android:title="Map" />
 
     <item
-        android:id="@+id/navigation_second"
+        android:id="@+id/navigation_search"
         android:icon="@drawable/ic_map"
-        android:title="Second" />
+        android:title="Search" />
 
     <item
-        android:id="@+id/navigation_third"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_user"
-        android:title="Third" />
+        android:title="Profile" />
 
 </menu>

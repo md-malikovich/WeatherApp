@@ -1,14 +1,13 @@
 package com.e.weatherapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import com.e.weatherapp.ui.MapFragment
 import com.e.weatherapp.ui.WeatherFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,10 +16,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSelectFragment(MapFragment())
+        showWeatherFragment(WeatherFragment())
 
-        val btn : Button = btn_main
-        btn_main.setOnClickListener {
-           //
+        val fab: View = findViewById(R.id.fab)
+
+        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "WeatherFragment", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null)
+//                .show()
         }
     }
 
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_search -> {
-                    //setSelectFragment(SearchFragment())
+                    setSelectFragment(WeatherFragment())
                     true
                 }
                 R.id.navigation_profile -> {
@@ -45,22 +48,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setSelectFragment(fr: Fragment) {
-//        btn_main.setOnClickListener {
-//            supportFragmentManager.beginTransaction().show(R.id.weather_container, WeatherFragment).commit()
-//        }
         supportFragmentManager.beginTransaction().add(R.id.main_fragment, fr).commit()
     }
 
-//    private fun setSelectFragment(fr: Fragment? = null) {
-//        fr?.let {supportFragmentManager.beginTransaction().add(R.id.main_fragment, it).commit()} // show
-//    }
+    private fun showWeatherFragment(fr: Fragment) {
+        fab.setOnClickListener { view ->
+            supportFragmentManager.beginTransaction().replace(R.id.map_container, WeatherFragment()).show(fr).commit()
+        }
+    }
 }
-
-/* 1. Добавить кнопку на НАШ MapFragment(), при нажатии на кнопку нужно сделать отображение
- всплывающего окна погоды.
- 2. Исправить ошибку при нажатии на мап баттон
-
- нажимаем на кнопку - показываем сверху новый фрагмент!!!!!!!!!!!!!!!!!!!!!!
- */
-//Чтобы подключиться к API, передайте этот ключ из приложения в качестве значения параметра: key=API_KEY.
-//AIzaSyBrgVTYhkl5y4yfwkxgaTeRzmm-q5o2vWo

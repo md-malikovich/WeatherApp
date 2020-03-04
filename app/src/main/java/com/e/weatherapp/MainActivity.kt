@@ -2,6 +2,7 @@ package com.e.weatherapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -19,12 +20,6 @@ class MainActivity : AppCompatActivity() {
         showWeatherFragment(WeatherFragment())
 
         val fab: View = findViewById(R.id.fab)
-
-        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "WeatherFragment", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null)
-//                .show()
-        }
     }
 
     private fun setupNavigationView(fr: Fragment) {
@@ -35,11 +30,11 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_search -> {
-                    setSelectFragment(WeatherFragment())
+                    showWeatherFragment(WeatherFragment())
                     true
                 }
                 R.id.navigation_profile -> {
-                    //setSelectFragment(ProfileFragment())
+                    //
                     true
                 }
                 else -> false
@@ -53,7 +48,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showWeatherFragment(fr: Fragment) {
         fab.setOnClickListener { view ->
-            supportFragmentManager.beginTransaction().replace(R.id.map_container, WeatherFragment()).show(fr).commit()
+            //supportFragmentManager.beginTransaction().show(WeatherFragment()).commit()
+            supportFragmentManager.beginTransaction().show(fr).commit()
+            Log.d("ololo", "show")
         }
     }
 }

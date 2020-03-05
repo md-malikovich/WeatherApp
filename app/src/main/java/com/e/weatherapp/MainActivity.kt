@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.e.weatherapp.ui.CountriesFragment
 import com.e.weatherapp.ui.MapFragment
 import com.e.weatherapp.ui.WeatherFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,15 +15,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setSelectFragment(MapFragment())
-        //setSelectFragment(WeatherFragment())
-        //setupNavigationView(MapFragment())
-        //showFragment(WeatherFragment())
+        setupNavigationView()
 
         val fab: View = findViewById(R.id.fab)
 
-        fab.setOnClickListener { view ->
-            showFragment()
+        fab.setOnClickListener { view -> //TODO: ???
+//            supportFragmentManager.beginTransaction().replace(R.id.map_container, WeatherFragment())
+//            supportFragmentManager.beginTransaction().add(WeatherFragment(), "weather")
         }
 
 //        img_close.setOnClickListener { view ->
@@ -30,20 +31,25 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
-    private fun setupNavigationView(fr: Fragment) {
+    private fun setupNavigationView() {
         navigation_view.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_map-> {
                     setSelectFragment(MapFragment())
+                    Log.d("ololo", "1")
+                    fab.show()
                     true
                 }
                 R.id.navigation_search -> {
-                    //setSelectFragment(WeatherFragment())
-                    //showFragment(WeatherFragment())
+                    setSelectFragment(CountriesFragment())
+                    fab.hide()
+                    Log.d("ololo", "2")
                     true
                 }
                 R.id.navigation_profile -> {
-                    //
+                    setSelectFragment(WeatherFragment())
+                    fab.hide()
+                    Log.d("ololo", "3")
                     true
                 }
                 else -> false
@@ -53,9 +59,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun setSelectFragment(fr: Fragment) {
         supportFragmentManager.beginTransaction().add(R.id.main_fragment, fr).commit()
-    }
-
-    private fun showFragment() {
-            setupNavigationView(WeatherFragment())
     }
 }

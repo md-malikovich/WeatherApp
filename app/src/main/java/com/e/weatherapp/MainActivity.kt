@@ -2,7 +2,6 @@ package com.e.weatherapp
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.e.weatherapp.ui.CountriesFragment
@@ -17,15 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setupNavigationView()
         setSelectFragment(MapFragment())
-
-//        val fab: View = findViewById(R.id.fab)
-//        fab.setOnClickListener { view -> //
-//            MapFragment().showFragment()
-//        }
-
-//        img_close.setOnClickListener { view ->
-//            //
-//        }
     }
 
     private fun setupNavigationView() {

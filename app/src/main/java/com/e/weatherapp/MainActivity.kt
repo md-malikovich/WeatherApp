@@ -15,16 +15,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        setSelectFragment(MapFragment())
         setupNavigationView()
+        setSelectFragment(MapFragment())
 
-        val fab: View = findViewById(R.id.fab)
-
-        fab.setOnClickListener { view -> //TODO: ???
-//            supportFragmentManager.beginTransaction().replace(R.id.map_container, WeatherFragment())
-//            supportFragmentManager.beginTransaction().add(WeatherFragment(), "weather")
-        }
+//        val fab: View = findViewById(R.id.fab)
+//        fab.setOnClickListener { view -> //
+//            MapFragment().showFragment()
+//        }
 
 //        img_close.setOnClickListener { view ->
 //            //
@@ -37,18 +34,18 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_map-> {
                     setSelectFragment(MapFragment())
                     Log.d("ololo", "1")
-                    fab.show()
+                    //fab.show()
                     true
                 }
                 R.id.navigation_search -> {
                     setSelectFragment(CountriesFragment())
-                    fab.hide()
+                    //fab.hide()
                     Log.d("ololo", "2")
                     true
                 }
                 R.id.navigation_profile -> {
                     setSelectFragment(WeatherFragment())
-                    fab.hide()
+                    //fab.hide()
                     Log.d("ololo", "3")
                     true
                 }

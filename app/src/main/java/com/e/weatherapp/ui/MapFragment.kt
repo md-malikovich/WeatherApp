@@ -34,8 +34,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnCameraMoveListen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fab: View = context.findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-
+        fab.setOnClickListener { view -> //TODO: ???????
            showFragment()
         }
     }

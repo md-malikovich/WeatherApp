@@ -1,11 +1,10 @@
 package com.e.weatherapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.e.weatherapp.ui.CountriesFragment
-import com.e.weatherapp.ui.MapFragment
+import com.e.weatherapp.ui.city.CityFragment
+import com.e.weatherapp.ui.map.MapFragment
 import com.e.weatherapp.ui.WeatherFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_search -> {
-                    setSelectFragment(CountriesFragment.newInstance())
+                    setSelectFragment(CityFragment.newInstance())
                     true
                 }
                 R.id.navigation_profile -> {
@@ -42,7 +41,3 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.main_fragment, fr).addToBackStack(fr.tag).commit()
     }
 }
-/*
-1. (Кто не сделал предыдущее задание) - сделать его!!! - 0.5б
-2. Сделать отображение погоды по координатам в фрагменте погоды! - 1б
- */

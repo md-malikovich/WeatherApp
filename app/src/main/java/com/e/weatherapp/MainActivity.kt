@@ -14,29 +14,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupNavigationView()
         setSelectFragment(MapFragment())
+        setupNavigationView()
     }
 
     private fun setupNavigationView() {
         navigation_view.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.navigation_map-> {
-                    setSelectFragment(MapFragment())
-                    Log.d("ololo", "1")
-                    //fab.show()
+                R.id.navigation_map -> {
+                    setSelectFragment(MapFragment.newInstance())
                     true
                 }
                 R.id.navigation_search -> {
-                    setSelectFragment(CountriesFragment())
-                    //fab.hide()
-                    Log.d("ololo", "2")
+                    setSelectFragment(CountriesFragment.newInstance())
                     true
                 }
                 R.id.navigation_profile -> {
-                    setSelectFragment(WeatherFragment())
-                    //fab.hide()
-                    Log.d("ololo", "3")
+                    setSelectFragment(WeatherFragment.newInstance())
                     true
                 }
                 else -> false
@@ -45,6 +39,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setSelectFragment(fr: Fragment) {
-        supportFragmentManager.beginTransaction().add(R.id.main_fragment, fr).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_fragment, fr).addToBackStack(fr.tag).commit()
     }
 }
+/*
+1. (Кто не сделал предыдущее задание) - сделать его!!! - 0.5б
+2. Сделать отображение погоды по координатам в фрагменте погоды! - 1б
+ */

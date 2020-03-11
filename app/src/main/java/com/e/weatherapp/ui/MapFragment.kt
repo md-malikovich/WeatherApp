@@ -18,6 +18,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnCameraMoveListen
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var fab: FloatingActionButton
 
+    companion object {
+        fun newInstance() : Fragment {
+            return MapFragment()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +56,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnCameraMoveListen
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        //mMap = googleMap
 //        showFragment()
 //        mMap.setOnMapClickListener {
 //            mapFragment = SupportMapFragment.newInstance()

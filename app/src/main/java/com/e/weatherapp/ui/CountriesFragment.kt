@@ -10,12 +10,19 @@ import com.e.weatherapp.R
 
 class CountriesFragment : Fragment() {
 
+    companion object {
+        fun newInstance() : Fragment {
+            return CountriesFragment()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_countries, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
+        val view: View? = inflater.inflate(R.layout.fragment_countries, container, false)
+        return view
     }
 
 }

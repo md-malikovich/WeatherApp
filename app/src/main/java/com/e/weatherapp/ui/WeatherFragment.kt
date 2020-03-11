@@ -10,10 +10,19 @@ import com.e.weatherapp.R
 
 class WeatherFragment : Fragment() {
 
+    companion object {
+        fun newInstance() : Fragment {
+            return WeatherFragment()
+        }
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_weather, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
+        val view: View? = inflater.inflate(R.layout.fragment_weather, container, false)
+        return view
     }
 }

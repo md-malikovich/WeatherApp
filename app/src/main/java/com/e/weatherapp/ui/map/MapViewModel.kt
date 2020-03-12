@@ -7,7 +7,7 @@ import com.e.weatherapp.repositories.WeatherRepository
 
 class MapViewModel(private val wRepository: WeatherRepository) : ViewModel() {
 
-    fun getWeatherData(units: String, lat: String, lon: String): LiveData<WeatherMainModel> {
+        fun getWeatherData(units: String, lat: Double, lon: Double): LiveData<WeatherMainModel> {
         return wRepository.getWeatherData(units, lat, lon)
     }
 }

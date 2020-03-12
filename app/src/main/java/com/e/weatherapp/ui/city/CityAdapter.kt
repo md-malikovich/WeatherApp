@@ -3,11 +3,21 @@ package com.e.weatherapp.ui.city
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.e.weatherapp.R
 import com.e.weatherapp.model.City
+import com.e.weatherapp.model.city.CityDataModel
+import com.e.weatherapp.repositories.CitiesRepository
 
 class CityAdapter(private val list: MutableList<City>) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
+
+    private var cityList: ArrayList<City>? = null
+
+    fun setList(list: ArrayList<City>) {
+        cityList = list
+        notifyDataSetChanged()
+    }
 
     override fun getItemCount(): Int {
         return list.size
@@ -22,8 +32,12 @@ class CityAdapter(private val list: MutableList<City>) : RecyclerView.Adapter<Ci
     )
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        var cityData = MutableLiveData<List<CityDataModel>>()
         fun bind(city: City) {
             //
+            city.name
+
         }
     }
 }

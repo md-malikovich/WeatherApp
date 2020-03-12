@@ -13,7 +13,7 @@ private const val BASE_URL = "http://api.openweathermap.org/"
 class WeatherRepository() {
     private lateinit var api: ApiService
 
-    fun getWeatherData(units: String, lat: String, lon: String): MutableLiveData<WeatherMainModel> {
+    fun getWeatherData(units: String, lat: Double, lon: Double): MutableLiveData<WeatherMainModel> {
         api = RetrofitClient.instanceRetrofit(BASE_URL)!!
         val data = MutableLiveData<WeatherMainModel>()
         api.getWeatherData(units, lat, lon, WEATHER_KEY)
@@ -31,5 +31,4 @@ class WeatherRepository() {
             })
         return data
     }
-
 }

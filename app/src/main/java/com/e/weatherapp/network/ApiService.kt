@@ -12,8 +12,8 @@ interface ApiService {
 
     @GET("data/2.5/weather")
     fun getWeatherData(@Query("units") units: String,
-                       @Query("lat") lat: String,
-                       @Query("lon") lon: String,
+                       @Query("lat") lat: Double,
+                       @Query("lon") lon: Double,
                        @Query("appId") appId: String) : Call<WeatherMainModel>
 
     @GET("rest/v2/capital/{city}")

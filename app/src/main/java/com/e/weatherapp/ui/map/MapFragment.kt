@@ -1,35 +1,38 @@
 package com.e.weatherapp.ui.map
 
 import android.annotation.SuppressLint
-import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.e.weatherapp.R
-import com.e.weatherapp.model.Coord
-import com.e.weatherapp.ui.WeatherFragment
-import com.e.weatherapp.utils.Toast
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.e.weatherapp.base.BaseFragment
+import com.google.android.gms.maps.model.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.bottom_sheet_weather.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_weather.*
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnCameraMoveListener, GoogleMap.OnMapClickListener,
+class MapFragment : BaseFragment(R.layout.fragment_map), OnMapReadyCallback,
+    GoogleMap.OnCameraMoveListener,
     GoogleMap.OnCameraIdleListener {
 
     private lateinit var mMap: GoogleMap
     private val viewModel: MapViewModel by viewModel()
-    private lateinit var fab: FloatingActionButton
+    private lateinit var weatherBottomSheet: BottomSheetBehavior<View>
 
     companion object {
-        fun newInstance() : Fragment {
+        fun newInstance(): Fragment {
             return MapFragment()
         }
     }
@@ -42,30 +45,34 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnCameraMoveListen
         super.onCreateView(inflater, container, savedInstanceState)
         val view: View? = inflater.inflate(R.layout.fragment_map, container, false)
         setupMap()
-        view?.let { bindView(it) } //TODO:???
         return view
     }
 
-    private fun bindView(view: View) { //TODO:???
-        fab = view.findViewById(R.id.fab)
-        fab.setOnClickListener {
-            com.e.weatherapp.utils.Toast.message(context!!, "On Fab click!")
-            //showFragment()
-        }
+    override fun initViews(view: View) {
+        //
     }
 
-    private fun showFragment() { //TODO:???
-       activity?.supportFragmentManager?.beginTransaction()?.add(R.id.map_container, WeatherFragment())?.commit()
+    override fun loadingStatus() {
+        //
     }
 
-    private fun getWeather(latLng: LatLng) {
-        viewModel.getWeatherData("metric", latLng.latitude, latLng.longitude).observe(activity!!, Observer {
-            tv_cityName?.text = it.name
-            tv_temp?.text = it.main.temp.toInt().toString() //"$ {it!!.main.temp.toInt()}"
-            tv_yasno?.text = it.weather[0].main
-            tv_humidity?.text = it.main.humidity.toString() //"$ {it!!.main.humidity}"
-            //TODO: gradle
-        })
+    private fun initBottomSheet(it: Marker) {
+        val bottomWeather = WeatherBottomSheet()
+        if (!bottomWeather.isAdded) bottomWeather.show(activity!!.supportFragmentManager, bottomWeather.tag)
+    }
+
+    @SuppressLint("SetTextI18n")
+    public fun getWeather(latLng: LatLng) {
+        viewModel.getWeatherData("metric", latLng.latitude, latLng.longitude)
+            .observe(activity!!, Observer {
+                tv_cityName?.text = it.name
+                tv_temp?.text = "${it!!.main.temp.toInt()}°"
+                tv_yasno?.text = it.weather[0].main
+                tv_humidity?.text = "${it.main.humidity}% влажности"
+                Glide.with(context!!)
+                    .load("http://openweathermap.org/img/wn/${it.weather[0].icon}.png")
+                    .into(img_sun)
+            })
     }
 
     private fun setupMap() {
@@ -74,20 +81,34 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnCameraMoveListen
         mapFragment.getMapAsync(this)
     }
 
+    private fun addMarkerToMap(location: LatLng) {
+        mMap.clear()
+        val markerOptions = MarkerOptions()
+            .position(location)
+            .title("My marker")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
+        mMap.addMarker(markerOptions).showInfoWindow()
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        googleMap.setOnMapClickListener {
-            com.e.weatherapp.utils.Toast.message(context!!, "On map click!")
-            val weatherFragment = WeatherFragment()
-            val fm = activity?.supportFragmentManager
-            if (fm?.findFragmentByTag("Weather") != null) {
-                fm.beginTransaction().show(fm.findFragmentByTag("Weather")!!).commit()
-            } else {
-                fm!!.beginTransaction().add(R.id.main_fragment, weatherFragment, "Weather")
-                    .commit()
-            }
-            getWeather(it)
+        mMap.setOnCameraMoveListener (this)
+        mMap.setOnCameraIdleListener (this)
+        mMap.setOnMapClickListener {
+            android.widget.Toast.makeText(
+                    activity?.applicationContext,
+                    "LAT: ${it.latitude} LNG: ${it.longitude}",
+                    android.widget.Toast.LENGTH_SHORT).show()
+            addMarkerToMap(it)
         }
+        mMap.setOnInfoWindowClickListener {
+            initBottomSheet(it)
+            //displayWeather(it)
+        }
+    }
+
+    private fun displayWeather(it: Marker) {
+        weatherBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     override fun onCameraMove() {
@@ -96,10 +117,5 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnCameraMoveListen
 
     override fun onCameraIdle() {
         //
-    }
-
-    @SuppressLint("toast")
-    override fun onMapClick(p0: LatLng?) {
-        //Toast.makeText(activity, p0?.latitude.toString(), Toast.LENGTH_LONG).show()
     }
 }

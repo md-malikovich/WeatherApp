@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_weather_fragment"
-    android:layout_width="350dp"
-    android:layout_height="660dp"
+    android:id="@+id/main_btn_sheet_weather"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_margin="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_gradient"
-    tools:context=".ui.WeatherFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/weather_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    tools:context=".ui.map.WeatherBottomSheet">
 
         <TextView
             android:id="@+id/tv_cityName"
@@ -85,7 +75,7 @@
             android:id="@+id/img_sun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_sun"
+            android:src="@drawable/ic_sun_png"
             android:layout_marginStart="24dp"
             android:layout_marginTop="70dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,14 +107,12 @@
             android:background="@drawable/rounded_btn"
             android:layout_width="300dp"
             android:layout_height="60dp"
-            android:text="  Добавить город в избранное  "
+            android:text="  Добавить место в избранное  "
             android:textColor="@color/colorWhite"
             android:textSize="16dp"
             android:layout_marginBottom="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

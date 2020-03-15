@@ -1,6 +1,5 @@
-package com.e.weatherapp.model
+package com.e.weatherapp.model.weather
 
-import com.e.weatherapp.model.*
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

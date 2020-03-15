@@ -3,41 +3,47 @@ package com.e.weatherapp.ui.city
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.weatherapp.R
-import com.e.weatherapp.model.City
 import com.e.weatherapp.model.city.CityDataModel
-import com.e.weatherapp.repositories.CitiesRepository
 
-class CityAdapter(private val list: MutableList<City>) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
+class CityAdapter(private val function: (CityDataModel) -> Unit) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
+    private var cityList: MutableList<CityDataModel>? = null
 
-    private var cityList: ArrayList<City>? = null
-
-    fun setList(list: ArrayList<City>) {
+    fun updateList(list: MutableList<CityDataModel>) {
         cityList = list
         notifyDataSetChanged()
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
+        val view: View = LayoutInflater.from(parent.context!!)
+            .inflate(R.layout.item_view_city, parent, false)
+        return CityViewHolder(view, function)
+    }
+
+    override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
+        holder.bind(cityList!![position])
+    }
+
     override fun getItemCount(): Int {
-        return list.size
+        if (cityList != null) {
+            return cityList!!.size
+        }
+        return 0
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
-    }
+    inner class CityViewHolder(itemView: View, val function: (CityDataModel) -> Unit) : RecyclerView.ViewHolder(itemView) {
+        val cityTitle: TextView = itemView.findViewById(R.id.tv_city)
+        val citySubTitle: TextView = itemView.findViewById(R.id.tv_country)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder (
-        LayoutInflater.from(parent.context).inflate(R.layout.item_view_city, parent, false)
-    )
+        fun bind(city: CityDataModel) {
+            cityTitle.text = city.name
+            citySubTitle.text = city.capital
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        var cityData = MutableLiveData<List<CityDataModel>>()
-        fun bind(city: City) {
-            //
-            city.name
-
+            itemView.setOnClickListener {
+                function(city)
+            }
         }
     }
 }

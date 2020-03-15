@@ -14,6 +14,5 @@ class WeatherApp : Application() {
             androidContext(this@WeatherApp)
             modules(appModule)
         }
-
     }
 }

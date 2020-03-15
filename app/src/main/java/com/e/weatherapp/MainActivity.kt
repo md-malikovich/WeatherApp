@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.e.weatherapp.ui.city.CityFragment
 import com.e.weatherapp.ui.map.MapFragment
-import com.e.weatherapp.ui.WeatherFragment
+import com.e.weatherapp.ui.map.WeatherBottomSheet
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_profile -> {
-                    setSelectFragment(WeatherFragment.newInstance())
+                    //setSelectFragment(WeatherBottomSheet.newInstance())
+                    setSelectFragment(WeatherBottomSheet())
                     true
                 }
                 else -> false

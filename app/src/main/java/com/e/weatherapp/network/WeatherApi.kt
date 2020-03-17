@@ -1,7 +1,6 @@
 package com.e.weatherapp.network
 
 import com.e.weatherapp.model.weather.WeatherMainModel
-import com.e.weatherapp.model.city.CityDataModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.Call

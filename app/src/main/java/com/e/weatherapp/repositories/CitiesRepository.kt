@@ -13,10 +13,8 @@ import retrofit2.Response
 class CitiesRepository(private val retrofit: RetrofitClient) {
     private lateinit var api: CityApi
 
-    fun getCityData(city: String): MutableLiveData<MutableList<CityDataModel>> {
-
+    suspend fun getCityData(city: String): MutableLiveData<MutableList<CityDataModel>> {
         api = retrofit.retrofit(NetworkConstants.BASE_CITY_URL).create(CityApi::class.java)
-//        api = RetrofitClient.instanceRetrofit(BASE_CITY_URL)!!
         val data = MutableLiveData<MutableList<CityDataModel>>()
         api.getCityData(city)
             .enqueue(object : Callback<MutableList<CityDataModel>> {

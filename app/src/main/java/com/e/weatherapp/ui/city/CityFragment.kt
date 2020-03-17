@@ -57,8 +57,7 @@ class CityFragment : BaseFragment (R.layout.fragment_city) {
     private fun onClickItem(city: CityDataModel) {
         val intent = Intent(context, DetailCityActivity::class.java)
         intent.putExtra("city", city.flag)
-        intent.putExtra("city", city.name)
-        startActivity(intent)
+        startActivity(intent) //TODO: появляется только Toast, флаг не появляется??? Хотя при дебаге показывает, что данные приходят
         Toast.message(context!!, "" + city.name)
     }
 
@@ -78,6 +77,7 @@ class CityFragment : BaseFragment (R.layout.fragment_city) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 val timer = object : CountDownTimer(800, 1000) {
+
                     override fun onTick(millisUntilFinished: Long) {}
                     override fun onFinish() {
                         viewModel.loading.value = true

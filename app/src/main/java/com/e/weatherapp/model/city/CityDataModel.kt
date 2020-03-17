@@ -1,7 +1,9 @@
 package com.e.weatherapp.model.city
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "cityModel")
 data class CityDataModel (
     @SerializedName("name") val name : String,
     @SerializedName("topLevelDomain") val topLevelDomain : List<String>,

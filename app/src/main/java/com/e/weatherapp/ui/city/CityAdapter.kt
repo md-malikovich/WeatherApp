@@ -35,11 +35,11 @@ class CityAdapter(private val function: (CityDataModel) -> Unit) : RecyclerView.
 
     inner class CityViewHolder(itemView: View, val function: (CityDataModel) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val cityTitle: TextView = itemView.findViewById(R.id.tv_city)
-        val citySubTitle: TextView = itemView.findViewById(R.id.tv_country)
+        val countryTitle: TextView = itemView.findViewById(R.id.tv_country)
 
         fun bind(city: CityDataModel) {
             cityTitle.text = city.name
-            citySubTitle.text = city.capital
+            countryTitle.text = city.capital
 
             itemView.setOnClickListener {
                 function(city)

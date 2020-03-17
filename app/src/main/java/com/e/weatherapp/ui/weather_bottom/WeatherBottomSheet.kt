@@ -1,16 +1,13 @@
-package com.e.weatherapp.ui.map
+package com.e.weatherapp.ui.weather_bottom
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.e.weatherapp.R
 import com.e.weatherapp.base.BaseBottomSheet
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WeatherBottomSheet : BaseBottomSheet() {
 
@@ -20,22 +17,35 @@ class WeatherBottomSheet : BaseBottomSheet() {
         }
     }
 
+    private var lng: Double = 0.0
+    private var lat: Double = 0.0
+    private val viewModel: WeatherBottomViewModel by viewModel()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val view: View? = inflater.inflate(R.layout.bottom_sheet_weather, container, false)
+        val view = inflater.inflate(R.layout.bottom_sheet_weather, container, false)
+        viewModel.addToFavorite(lng, lat)
         return view
     }
+}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+
+
+//override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+//    super.onCreateView(inflater, container, savedInstanceState)
+//    val view: View? = inflater.inflate(R.layout.bottom_sheet_weather, container, false)
+//    return view
+//}
+
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
 //        val bottomSheet = view.findViewById(R.id.main_btn_sheet_weather) as ConstraintLayout
 //
-//        val bottomSheetBehavior: BottomSheetBehavior<View> = BottomSheetBehavior.from(bottomSheet)
+//        val bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout> = BottomSheetBehavior.from(bottomSheet)
 //        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 //        bottomSheetBehavior.peekHeight = 400
-//        bottomSheetBehavior.isHideable = false
-
+//        //bottomSheetBehavior.isHideable = false
+//
 //        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
 //            override fun onStateChanged(bottomSheet: View, newState: Int) {
 //                //
@@ -44,5 +54,4 @@ class WeatherBottomSheet : BaseBottomSheet() {
 //                //
 //            }
 //        })
-    }
-}
+//    }
